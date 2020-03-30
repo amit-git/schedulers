@@ -41,10 +41,10 @@ class Scheduler:
         return allocations
 
 ############ Main #########################
-r1 = ResourceNeed(client_id="nq", amount=24)
-r2 = ResourceNeed(client_id="spaas", amount=15)
-r3 = ResourceNeed(client_id="matrix", amount=45)
-r4 = ResourceNeed(client_id="oca", amount=45)
+r1 = ResourceNeed(client_id="uber", amount=24)
+r2 = ResourceNeed(client_id="linkedIn", amount=15)
+r3 = ResourceNeed(client_id="apple", amount=45)
+r4 = ResourceNeed(client_id="google", amount=45)
 
 s = Scheduler(100)
 allocations = s.get_allocations([r1, r2, r3, r4])
