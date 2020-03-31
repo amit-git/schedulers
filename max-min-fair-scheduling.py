@@ -10,7 +10,7 @@ class ResourceNeed:
         self.client = client_id
         self.amount = amount
 
-class Scheduler:
+class MaxMinScheduler:
     def __init__(self, available_resource):
         self.available_resource = available_resource
         pass
@@ -22,7 +22,7 @@ class Scheduler:
         num_remaining_clients = len(resource_needs)
         while rem_allocations > 0:
             current_allocation = rem_allocations / num_remaining_clients
-            logger.info(f"current allocations size {current_allocation}")
+            logger.info(f"current allocation size {current_allocation}")
             rem_allocations = 0
             num_remaining_clients = 0
 
@@ -46,7 +46,7 @@ r2 = ResourceNeed(client_id="linkedIn", amount=15)
 r3 = ResourceNeed(client_id="apple", amount=45)
 r4 = ResourceNeed(client_id="google", amount=45)
 
-s = Scheduler(100)
+s = MaxMinScheduler(100)
 allocations = s.get_allocations([r1, r2, r3, r4])
 logger.info(pformat(allocations))
 
