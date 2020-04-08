@@ -41,9 +41,9 @@ class MaxMinScheduler:
         return allocations
 
 ############ Main #########################
-r1 = ResourceNeed(client_id="uber", amount=24)
-r2 = ResourceNeed(client_id="linkedIn", amount=15)
-r3 = ResourceNeed(client_id="apple", amount=45)
+r1 = ResourceNeed(client_id="uber", amount=34)
+r2 = ResourceNeed(client_id="linkedIn", amount=10)
+r3 = ResourceNeed(client_id="apple", amount=55)
 r4 = ResourceNeed(client_id="google", amount=45)
 
 s = MaxMinScheduler(100)
