@@ -59,6 +59,7 @@ def build_resource_needs(alloc_argv):
 
 if len(sys.argv) != 2:
     print("Missing argument <resource_needs>")
+    print("Usage: max-min-fair-scheduling.py A=24,B=45,C=15,D=10")
     exit(-1)
 
 s = MaxMinScheduler(100)
