@@ -16,3 +16,10 @@ func TestBuildResourceNeeds(t *testing.T) {
 		t.Error("Resource needs not built")
 	}
 }
+
+func TestAllocatingResources(t *testing.T) {
+	err, _ := getAllocations([]*ResourceNeed{})
+	if err != nil {
+		t.Error(fmt.Printf("Error in allocating resources - %s", err))
+	}
+}
