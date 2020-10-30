@@ -7,15 +7,16 @@ import (
 	"strings"
 )
 
+// ResourceNeed type for working with individual client needs
 type ResourceNeed struct {
-	clientId string
+	clientID string
 	amount   int
 }
 
-func getAllocations(resourceNeeds []*ResourceNeed) (error, map[string]int) {
+func getAllocations(resourceNeeds []*ResourceNeed) (map[string]int, error) {
 	var allocations = map[string]int{}
 	allocations["random-client-id"] = 10
-	return errors.New("Not Implemented"), allocations
+	return allocations, errors.New("Not Implemented")
 }
 
 /**
@@ -61,7 +62,7 @@ func buildResourceNeeds(allocArgs string) []*ResourceNeed {
 			panic(fmt.Sprintf("%s :: Bad argument", resourceNeedParts[1]))
 		}
 		resourceNeeds = append(resourceNeeds, &ResourceNeed{
-			clientId: resourceNeedParts[0],
+			clientID: resourceNeedParts[0],
 			amount:   amountVal,
 		})
 	}
@@ -69,5 +70,5 @@ func buildResourceNeeds(allocArgs string) []*ResourceNeed {
 }
 
 func main() {
-	fmt.Println("vim-go")
+	fmt.Println("Hello VS Coding for golang")
 }
