@@ -1,8 +1,8 @@
 package main
 
 import (
-	"errors"
 	"fmt"
+	"log"
 	"strconv"
 	"strings"
 )
@@ -13,42 +13,35 @@ type ResourceNeed struct {
 	amount   int
 }
 
-func getAllocations(resourceNeeds []*ResourceNeed) (map[string]int, error) {
+func getAllocations(resourceNeeds []*ResourceNeed, availableResources int) (map[string]int, error) {
 	var allocations = map[string]int{}
-	allocations["random-client-id"] = 10
-	return allocations, errors.New("Not Implemented")
+	for _, req := range resourceNeeds {
+		allocations[req.clientID] = 0
+	}
+	remainingAllocations := availableResources
+	numRemainingClients := len(resourceNeeds)
+	for remainingAllocations > 0 {
+		currentAllocation := remainingAllocations / numRemainingClients
+		log.Printf("Current allocation size %d\n", currentAllocation)
+		remainingAllocations = 0
+		numRemainingClients = 0
+		for _, req := range resourceNeeds {
+			if allocations[req.clientID] < req.amount {
+				if allocations[req.clientID]+currentAllocation > req.amount {
+					// can't fully allocate current allocations
+					remainingAllocations += (currentAllocation - (req.amount - allocations[req.clientID]))
+					allocations[req.clientID] = req.amount
+				} else {
+					allocations[req.clientID] += currentAllocation
+					numRemainingClients++
+				}
+			} else {
+				log.Printf("Skipping allocations to client %s", req.clientID)
+			}
+		}
+	}
+	return allocations, nil
 }
-
-/**
-def get_allocations(self, resource_needs):
-        allocations = {rn.client: 0 for rn in resource_needs}
-
-        rem_allocations = self.available_resource
-        num_remaining_clients = len(resource_needs)
-        while rem_allocations > 0:
-            current_allocation = rem_allocations / num_remaining_clients
-            logger.info(f"current allocation size {current_allocation}")
-            rem_allocations = 0
-            num_remaining_clients = 0
-
-            for rn in resource_needs:
-                if allocations[rn.client] < rn.amount:
-                    if (allocations[rn.client] +
-                            current_allocation) > rn.amount:
-                        # can't fully allocate current allocation
-                        rem_allocations += (
-                                current_allocation - (
-                                    rn.amount - allocations[rn.client]))
-                        allocations[rn.client] = rn.amount
-                    else:
-                        allocations[rn.client] += current_allocation
-                        num_remaining_clients += 1
-                else:
-                    logger.info(f"Skipping allocation to client {rn.client}")
-
-        return allocations
-
-*/
 
 func buildResourceNeeds(allocArgs string) []*ResourceNeed {
 	var resourceNeeds []*ResourceNeed
@@ -70,5 +63,5 @@ func buildResourceNeeds(allocArgs string) []*ResourceNeed {
 }
 
 func main() {
-	fmt.Println("Hello VS Coding for golang")
+	fmt.Println("TODO - Command line parameters for scheduler")
 }
